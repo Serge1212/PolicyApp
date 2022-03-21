@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PolicyApp.Auth.Requirements;
 using PolicyApp.Core.Repositories;
 using PolicyApp.Core.Repositories.Interfaces;
+using PolicyApp.Core.Requirements.Handlers;
 using PolicyApp.Core.Services;
 using PolicyApp.Core.Services.Interfaces;
 using System.Text;
@@ -14,11 +16,12 @@ namespace PolicyApp.Core.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IAuthorizationHandler, ShouldBeAMetalFanAuthHandler>();
             services.AddSingleton<ITokenManager, TokenManager>();
             //repositories
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             //services
-            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IUserService, UserService>();
             return services;
         }
 

@@ -19,6 +19,11 @@ namespace PolicyApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterServices();
+
+            services.AddJwtBearerAuthentication();
+
+            services.AddPolicyAuthorization();
 
             services.AddControllers();
 
@@ -26,12 +31,6 @@ namespace PolicyApp
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PolicyApp", Version = "v1" });
             });
-
-            services.RegisterServices();
-
-            services.AddJwtBearerAuthentication();
-
-            services.AddPolicyAuthorization();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,11 +42,12 @@ namespace PolicyApp
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PolicyApp v1"));
             }
 
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

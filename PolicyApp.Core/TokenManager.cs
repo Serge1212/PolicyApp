@@ -1,6 +1,5 @@
 ﻿using PolicyApp.Core.Models;
 using PolicyApp.Core.Models.Auth;
-using PolicyApp.Core.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

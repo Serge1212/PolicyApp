@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PolicyApp.Core.CustomTokenAuth;
 using PolicyApp.Core.Extensions;
+using PolicyApp.Core.Services;
 
 namespace PolicyApp
 {
@@ -20,10 +22,14 @@ namespace PolicyApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterServices();
-
-            services.AddJwtBearerAuthentication();
-
             services.AddPolicyAuthorization();
+
+            services.AddAuthentication("Beer")
+                .AddTokenAuthenticationScheme<AdyOtakoTokenAuthService>("Beer", new TokenAuthenticationConfiguration
+                {
+                    Realm = "www.example.com",
+                    TokenLength = 11
+                });
 
             services.AddControllers();
 

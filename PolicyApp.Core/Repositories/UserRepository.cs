@@ -17,7 +17,7 @@ namespace PolicyApp.Core.Repositories
         }
         public AuthResult AuthenticateUser(UserLoginDTO userLogin)
         {
-            var user = ReaderStore.Users
+            var user = UsersDb.Users
                 .FirstOrDefault(x => x.Email.ToLower() == userLogin.Email.ToLower() &&
                                      x.Password == userLogin.Password);
 

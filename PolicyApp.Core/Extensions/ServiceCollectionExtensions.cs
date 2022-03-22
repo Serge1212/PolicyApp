@@ -58,7 +58,7 @@ namespace PolicyApp.Core.Extensions
                     config.AddPolicy("ShouldBeAMetalFan", options =>
                     {
                         options.RequireAuthenticatedUser();
-                        options.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                        options.AuthenticationSchemes.Add("Beer");
                         options.Requirements.Add(new ShouldBeAMetalFanRequirement());
                     });
                 });

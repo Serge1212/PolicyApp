@@ -8,7 +8,7 @@ namespace PolicyApp.Controllers
     public class MetalController : ControllerBase
     {
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [Authorize("ShouldBeAMetalFan")]
         public IActionResult Get()
         {

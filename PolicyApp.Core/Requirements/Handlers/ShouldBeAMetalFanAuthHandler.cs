@@ -22,7 +22,7 @@ namespace PolicyApp.Core.Requirements.Handlers
 
             var email = context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
 
-            if(ReaderStore.Users.Any(
+            if(UsersDb.Users.Any(
                 x => x.Email == email &&
                 x.IsMetalFan &&
                 x.Role == requiredRole))

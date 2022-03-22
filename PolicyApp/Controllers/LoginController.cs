@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PolicyApp.Core.DTOs.User;
 using PolicyApp.Core.Services.Interfaces;
+using System.Linq;
+using System.Security.Claims;
 
 namespace PolicyApp.Controllers
 {
@@ -22,6 +24,14 @@ namespace PolicyApp.Controllers
         public IActionResult Login([FromBody] UserLoginDTO userLogin)
         {
             return Ok(_userService.AuthenticateUser(userLogin));
+        }
+
+        [Authorize]
+        [HttpGet("my-email")]
+        public string GetMyEmail()
+        {
+            var email = User.Claims.First(c => c.Type == ClaimTypes.Email);
+            return email.Value;
         }
     }
 }
